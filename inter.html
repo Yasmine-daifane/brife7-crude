@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>solicodeclub</title>
+
+
+  <!---CSS -->
+  <link rel="stylesheet" href="inter.css">
+  <script src="inter.js" defer></script>
+
+</head>
+
+
+<body>
+  
+
+<section class="form" >
+  <form id="form">
+    <div class="inputbox">
+      <label>Nom</label>
+      <input   class="bar" id="nom" type="text" >  
+      <small></small>
+    </div>
+    <div class="inputbox">
+      <label  >Marque</label>
+      <input  class="bar"  id="marque"   type="text" >
+      <small></small>
+    </div>
+    <div class="inputbox">
+      <label >Prix</label>
+      <input  class="bar" type="number" id="price" >
+      <small></small>
+    </div>
+    <div class="inputbox">
+      <label > date de production  </label>
+      <input type="date"   id="date">
+      <small></small>
+    </div>
+    <div class="inputbox">
+      <label for="type">choisissez le type</label>
+      <select id="type">
+        <option value=""></option>
+        <option value="hygiène et toilette">hygiène et toilette</option>
+        <option value="soins esthétiques">soins esthétiques</option>
+        <option value="produits solaires"> produits solaires</option>
+        <option value="beauté des mains et des pieds">beauté des mains et des pieds</option>
+        <option value="produits de maquillage">produits de maquillage</option>
+        <option value="entretien capillaires">entretien capillaires</option>
+        <option value="parfums">parfums</option>
+      </select>
+       <small></small>
+    </div>
+      <div class="inputbox">
+        <label >Est en promotion  :   </label>
+        <div class="rad"> 
+         <label for="OUI"><input type="radio"  name="radio" value="oui" id="OUI">OUI</label>
+          <label for="NON"><input type="radio" name="radio" value="non" id="NON">NON</label> 
+        </div>
+         <div class="mis1"></div>
+      </div>
+
+   
+      <button id="button" type="button" value="Ajouter">Ajouter</button>
+
+  </form>
+
+</section>
+<section class="tabl"  >
+ 
+  <table id="controllist">
+    <thead>
+      <tr>
+        <th>NOM</th>
+        <th>Marque</th>
+        <th>price</th>
+        <th>date de production</th>
+        <th>Type</th>
+       <th>Est en promotion</th> 
+       <th>action</th>
+      </tr>
+    </thead>
+    <tbody id="controlist">
+    </tbody>
+  </table>
+</section>
+<div id="modal">
+  <div id="content">
+    <h2>DELETE YOUR STOCK</h2>
+    <p>Are you sure you want to delete THIS!!??</p>
+    <div class="modified">
+      <button id="remove">DELETE</button>
+      <button id="cancel">CANCEL</button>
+    </div>
+  </div>
+</div>
+</body>
+
+
+</html>
