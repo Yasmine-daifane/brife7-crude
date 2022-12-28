@@ -1,28 +1,34 @@
+// get element from html by their id ,name
+
 let form = document.getElementById("form");
 let nom = document.getElementById("nom");
 let marque = document.getElementById("marque");
-let price = document.getElementById("price");
-let desc = document.getElementsByName("radio");
+let prix = document.getElementById("price");
+let descoint = document.getElementsByName("radio");
 let date = document.getElementById("date");
 let type = document.getElementById("type");
 let mis1 = document.querySelector(".mis1");
+let Ajouter = document.getElementById("btn");
+var promo;
+const tableBody = document.querySelector("#productsdetails tbody");
+const contIdEdit = document.getElementById("contIdEdit");
 var arrow = [];
+
+// validation the inputs
 function checkinputs() {
-  console.log(desc);
   arrow.length = 0;
   let nomValue = nom.value;
   let marValue = marque.value;
-  let priceValue = price.value;
-  let dtValue = date.value;
+  let prixValue = prix.value;
+  let dateValue = date.value;
   let typvalue = type.value;
   let table = [
     nomValue,
     marValue,
-    priceValue,
-    dtValue,
+    prixValue,
+    dateValue,
     typvalue,
     promocheck(),
-    `<button id="edit${id}" onclick="edit(this)">edit</button><button id="delet${id}"  onclick="onDelete(this)">Delete</button>`,
   ];
   if (nomValue === "") {
     setErrorFor(nom, "nom is required");
@@ -40,13 +46,13 @@ function checkinputs() {
     setSuccessFor(marque, "GREAT!!!");
     arrow.push(true);
   }
-  if (priceValue == "") {
-    setErrorFor(price, "prix is required");
+  if (prixValue == "") {
+    setErrorFor(prix, "prix is required");
   } else {
-    setSuccessFor(price, "GREAT!!!");
+    setSuccessFor(prix, "GREAT!!!");
     arrow.push(true);
   }
-  if (dtValue == "") {
+  if (dateValue == "") {
     setErrorFor(date, "Date is required");
   } else {
     setSuccessFor(date, "GREAT!!!");
@@ -59,12 +65,12 @@ function checkinputs() {
     arrow.push(true);
   }
 
-  if (desc[0].checked) {
+  if (descoint[0].checked) {
     mis1.innerHTML = "GREAT!!!";
     arrow.push(true);
     mis1.style.color = "green";
     promo = document.getElementById("OUI").value;
-  } else if (desc[1].checked) {
+  } else if (descoint[1].checked) {
     arrow.push(true);
     mis1.innerHTML = "Great!!!";
     mis1.style.color = "green";
@@ -76,118 +82,210 @@ function checkinputs() {
   }
   return table;
 }
+
 function setErrorFor(input, message) {
   let formControl = input.parentElement;
   let small = formControl.querySelector("small");
   formControl.className = "inputbox-error";
   small.innerHTML = message;
-  console.log(formControl);
 }
 function setSuccessFor(input, message) {
   let formControl = input.parentElement;
-
-  console.log(formControl);
 
   let samp = formControl.querySelector("small");
 
   formControl.className = "inputbox-success";
   samp.innerHTML = message;
 }
+
 function promocheck() {
-  for (let i = 0; i < desc.length; i++) {
-    if (desc[i].checked) {
-      return desc[i].value;
+  for (let i = 0; i < descoint.length; i++) {
+    if (descoint[i].checked) {
+      return descoint[i].value;
     }
   }
 }
-let id = 0;
-function addelem() {
-  id++;
-  let table = document.getElementById("controlist");
-  let tr = document.createElement("tr");
-  tr.setAttribute("id", "tr" + id);
-  table.appendChild(tr);
-  for (let i = 0; i < checkinputs().length; i++) {
-    let td = document.createElement("td");
-    td.setAttribute("id", "td" + id + i);
-    document.getElementById("tr" + id).appendChild(td);
-    document.getElementById("td" + id + i).innerHTML = checkinputs()[i];
-  }
-  // resetform();
-}
-function onDelete(product) {
-  modale()
-  document.getElementById("remove").onclick = function(){
-    product.closest("tr").remove();
-    document.getElementById("modal").style.display = "none";
-  }
-}
-function boom() {
-  checkinputs();
-  if (arrow.length == 6) {
-    addelem();
-    resetform();
-  }
-}
-function resetform() {
-  nom.value = "";
-  marque.value = "";
-  price.value = "";
-  type.value = "";
-  date.value = "";
 
-  desc[0].checked = false;
-  desc[1].checked = false;
-}
-// edit
-let button = document.getElementById("button");
-button.onclick = function () {
-  boom();
-};
-function edit(that) {
-  let data = that.closest("tr");
-  let td = data.querySelectorAll("td");
-  let input = document.querySelectorAll("form input,select");
-  let inputtabl = [];
-  input.forEach((e) => {
-    inputtabl.push(e);
-  });
-  let datatable = [];
-  console.log(datatable);
-  td.forEach((e) => {
-    datatable.push(e.innerHTML);
-  });
-  for (let i = 0; i < datatable.length - 2; i++) {
-    inputtabl[i].value = datatable[i];
-  }
-  if (datatable[5] === "oui") {
-    document.getElementById("OUI").checked = true;
-  } else if (datatable[5] === "non") {
-    document.getElementById("NON").checked = true;
-  }
-  button.innerHTML = "save";
-  button.value = "save";
-  button.onclick = function () {
-    if (button.value === "save") {
+//  function to add informations in the table if we clic in ajout button
+Ajouter.onclick = function addinformation() {
+  if (Ajouter.value === "Ajouter") {
+    // for the reset form
+    arrow.length = 0;
+    checkinputs();
+    //  check if the inputs are valide befor the continuation the process
+    if (arrow.length != 6) {
+      arrow.length = 0;
+    } else {
+      // give the id a random number to get the exact  target in the table
+
+      let id = Math.floor(Math.random() * 1000000);
+
+      const newProd = new Product(
+        id,nom.value,prix.value,marque.value,date.value,type.value,promo
+      );
+
+      //  called the class and show the data and storej the data
+      newProd.showData().storeProduct();
+      nom.value = "";
+      prix.value = "";
+      marque.value = "";
+      date.value = "";
+      type.value = "";
+      descoint[0].checked = descoint[0].unchecked;
+      descoint[1].checked = descoint[1].unchecked;
+    }
+    //  change the button  vlue from ajouter to modifier
+  } else if (Ajouter.value === "Modifier") {
+    arrow.length = 0;
+    checkinputs();
+    if (arrow.length != 6) {
+      arrow.length = 0;
       checkinputs();
-      if (arrow.length == 6) {
-        for (let i = 0; i < checkinputs().length - 1; i++) {
-          td[i].innerHTML = checkinputs()[i];
-        }
-        resetform();
-        button.value = "Ajouter";
-        button.innerHTML = "Ajouter";
-      }
+    } else {
+      document.getElementById("btn").value = "Ajouter";
+
+      var id = contIdEdit.value;
+      const newProd = new Product(
+        id, nom.value, prix.value, marque.value, date.value, type.value, promo
+      );
+
+      newProd.updateProduct(id);
+      tableBody.innerHTML = "";
+      Product.showAllProducts();
+      nom.value = "";
+      prix.value = "";
+      marque.value = "";
+      date.value = "";
+      type.value = "";
+      descoint[0].checked = descoint[0].unchecked;
+      descoint[1].checked = descoint[1].unchecked;
     }
   }
+};
+
+class Product {
+  constructor(id, nom, prix, marque, date, type, promo) {
+    this.id = id;
+    this.nom = nom;
+    this.prix = prix;
+    this.marque = marque;
+    this.date = date;
+    this.type = type;
+    this.promo = promo;
+  }
+  showData() {
+    Product.showHtml(
+      this.id,
+      this.nom,
+      this.prix,
+      this.marque,
+      this.date,
+      this.type,
+      this.promo
+    );
+    return this;
+  }
+
+  storeProduct() {
+    const allData = JSON.parse(localStorage.getItem("products")) ?? [];
+    allData.push({
+      id: this.id,
+      nom: this.nom,
+      prix: this.prix,
+      marque: this.marque,
+      date: this.date,
+      type: this.type,
+      promo: this.promo,
+    });
+
+    localStorage.setItem("products", JSON.stringify(allData));
+  }
+  static showAllProducts() {
+    if (localStorage.getItem("products")) {
+      JSON.parse(localStorage.getItem("products")).forEach((item) => {
+        Product.showHtml(
+          item.id,
+          item.nom,
+          item.prix,
+          item.marque,
+          item.date,
+          item.type,
+          item.promo
+        );
+      });
+    }
+  }
+
+  updateProduct(id) {
+    const newItem = {
+      id: id,
+      nom: this.nom,
+      prix: this.prix,
+      marque: this.marque,
+      date: this.date,
+      type: this.type,
+      promo: this.promo,
+    };
+    const updateData = JSON.parse(localStorage.getItem("products")).map(
+      (item) => {
+        if (item.id == id) {
+          return newItem;
+        }
+        return item;
+      }
+    );
+    localStorage.setItem("products", JSON.stringify(updateData));
+  }
+
+  static showHtml(id, nom, prix, marque, date, type, promo) {
+    const trEl = document.createElement("tr");
+    trEl.innerHTML = `
+              <tr  role='row'>
+              <td>${nom}</td>
+              <td>${prix}</td>
+              <td>${marque}</td>
+              <td>${date}</td>
+              <td>${type}</td>
+              <td>${promo}</td>
+                  <td>
+                      <button   class="btn btn-info edit" data-id="${id}">Edit</button>
+                      <button  class="btn btn-danger delete" data-id="${id}">Delete</button>
+                  </td>
+              </tr>
+          `;
+    tableBody.appendChild(trEl);
+  }
 }
-// ::::: modae::::: 
-function modale() {
-    document.getElementById("modal").style.display="grid";
 
-}
+Product.showAllProducts();
+tableBody.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
+    const id = +e.target.getAttribute("data-id");
+    const Prods = JSON.parse(localStorage.getItem("products"));
+    const newData = Prods.filter((el) => el.id != +id);
+    localStorage.setItem("products", JSON.stringify(newData));
+    e.target.parentElement.parentElement.remove();
+  }
+  if (e.target.classList.contains("edit")) {
+    const id = e.target.getAttribute("data-id");
+    const mainItem = JSON.parse(localStorage.getItem("products")).find(
+      (item) => item.id == id
+    );
 
-  document.getElementById("cancel").onclick=function(){
-    document.getElementById("modal").style.display="none";
-  }  
+    // stocke the id of each row in this id
+    contIdEdit.value = id;
+    nom.value = mainItem.nom;
+    prix.value = mainItem.prix;
+    marque.value = mainItem.marque;
+    date.value = mainItem.date;
+    type.value = mainItem.type;
 
+    if (mainItem.promo === "oui") {
+      document.getElementById("OUI").checked = true;
+    } else {
+      document.getElementById("NON").checked = true;
+    }
+
+    document.getElementById("btn").value = "Modifier";
+  }
+});

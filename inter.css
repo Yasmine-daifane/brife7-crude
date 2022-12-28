@@ -11,52 +11,37 @@ body{
   display: grid;
   grid-template:auto/repeat(2,1fr) ;
   margin: 0;
-  background-image: url(/imgs/backg.webp);
+  background-image: url(/imgs/background.jpg);
   padding: 5em;
   background-size: cover;
 
 }
 
-form label{
-  color: beige;
-}
+/*--------formulair  */
 form{
   background-color:rgba(229, 222, 214, 0.549);
-
   display: grid;
   grid-template-rows:repeat(6,auto) ;
   gap: 10px;
   padding: 10px; 
  
 }
-
-form button {
-
-  line-height: 2em;
- border: none;
- border-radius: 14em;
- background-color: rgba(0, 128, 47, 0.544) ;
- color: beige;
- text-align: center;
-}
-
-
 form input[type="number"],[type="text"]{
   width: 100%;
-   color:grey;
+   color:blueviolet;
    line-height: 20px;
    border: none;
-   border-bottom: 1px solid rgba(0, 128, 47, 0.544);
+   border-bottom: 1px solid bisque;
    background: transparent;
  
 }
 form input[type="date"]{
 
 width: 100%;
-   color: gray;
+   color:blueviolet;
    line-height: 20px;
    border: none;
-   border-bottom: 1px solid rgba(0, 128, 47, 0.544);
+   border-bottom: 1px solid bisque;
    background: transparent;
 }
 
@@ -69,11 +54,11 @@ grid-template-rows:repeat(3,auto) ;
 gap: 10px;
 }
 .inputbox select {
-  color:gray;
-
+ background-color: rgba(137, 43, 226, 0.563);
+  
   line-height: 20px;
   border: none;
-  border-bottom: 1px solid rgba(0, 128, 47, 0.544);
+  border-bottom: 1px solid bisque;
   outline: none;
 }
 
@@ -84,7 +69,7 @@ gap: 10px;
   grid-template-columns: auto auto;
   
 }
-
+/*--------table */
 .tabl{
   background-color: rgba(203, 194, 194, 0.362);
 	border: 1px solid #eee;
@@ -108,7 +93,7 @@ table {
 
 th,tr,td { 
 
-	color: green; 
+	color: wheat; 
 	font-weight: bold; 
   padding: 10px; 
 	border: 1px solid #ccc; 
@@ -116,6 +101,40 @@ th,tr,td {
 	font-size: 18px;
   width: 10px;
   }
+
+  /*--------modal addtem */
+   #modaladd{
+    display: grid;
+    grid-template-columns: repeat(3,1fr) ;
+    grid-template-rows: repeat(5,1fr) ;
+    position: fixed;
+    justify-content: center;
+    background-color: rgba(255, 228, 196, 0.295);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+   display: none;
+   }
+   #added{
+    font-size: x-large;
+    margin-bottom: 1em;
+    line-height: 2em;
+    text-align: justify;
+   }
+   #hide{
+    grid-column-start:2 ;
+    grid-column-end:4;
+    color: black;
+    background-color: bisque;
+    border-radius: 11em;
+    
+   }
+
+
+
+
+
   #modal{
     top: 0;
     left: 0;
@@ -131,7 +150,7 @@ th,tr,td {
   #content{
     padding: 2em;
     text-align: center;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.766);
     grid-column-start: 2;
     grid-row-start: 2;
     border-radius: 25% 10%;
@@ -161,18 +180,18 @@ th,tr,td {
   }
     
   }
-    input[type="submit"]{
-      background: yellow;
+    input[type="button"]{
+      background: bisque;
       border-radius: 30px;
       border: none;
       cursor: pointer;
       font-size: 12PX;
       outline: none;
-      line-height: 36px;
-      margin-left: 112px;
-      width: 95px;
+      line-height: 49px;
+      margin-left: 122px;
+      width: 171px;
 }
-input[type="submit"]:hover{
+input[type="button"]:hover{
   background-color: bisque;
   color: #222;
 }
